@@ -1,67 +1,142 @@
-let player = 0;
-let computer = 0;
-
 function computerPlay() {
-    const selection = ["rock", "paper", "scissors"];
+    const selection = ["Rock", "Paper", "Scissors"];
 
     return selection[Math.floor(Math.random()*selection.length)]
 }
 
 function playRound(playerSelection, computerSelection) {
+    const rockIco = String.fromCodePoint(9994);
+    const paperIco = String.fromCodePoint(9995);
+    const scissorsIco = String.fromCodePoint(9996);
 
-    playerSelection = playerSelection.toLowerCase();
-    console.log(playerSelection);
-    console.log(computerSelection);
-
-    if (playerSelection === "rock" && computerSelection === "scissors") {
+    if (playerSelection === "Rock" && computerSelection === "Scissors") {
         player++;
-        return "You Win! Rock beats Scissors"
-    } else if (playerSelection === "paper" && computerSelection === "rock") {
+        paragraph.textContent = "Rock beats Scissors";
+        playerPick.textContent = rockIco;
+        computerPick.textContent = scissorsIco;
+        playerScore.textContent = `Player: ${player}`;
+        return "You Win!"
+    } else if (playerSelection === "Paper" && computerSelection === "Rock") {
         player++;
-        return "You Win! Paper beats Rock"
-    } else if (playerSelection === "scissors" && computerSelection === "paper") {
+        paragraph.textContent = "Paper beats Rock";
+        playerPick.textContent = paperIco;
+        computerPick.textContent = rockIco;
+        playerScore.textContent = `Player: ${player}`;
+        return "You Win!"
+    } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
         player++;
-        return "You Win! Scissors beats Paper"
-    } else if (playerSelection === "rock" && computerSelection === "paper") {
+        paragraph.textContent = "Scissors beats Paper";
+        playerPick.textContent = scissorsIco;
+        computerPick.textContent = paperIco;
+        playerScore.textContent = `Player: ${player}`;
+        return "You Win!"
+    } else if (playerSelection === "Rock" && computerSelection === "Paper") {
         computer++;
-        return "You Lose! Paper beats Rock"
-    } else if (playerSelection === "paper" && computerSelection === "scissors") {
+        paragraph.textContent = "Paper beats Rock";
+        playerPick.textContent = rockIco;
+        computerPick.textContent = paperIco;
+        computerScore.textContent = `Computer: ${computer}`;
+        return "You Lose!"
+    } else if (playerSelection === "Paper" && computerSelection === "Scissors") {
         computer++;
-        return "You Lose! Scissors beats Paper"
-    } else if (playerSelection === "scissors" && computerSelection === "rock") {
+        paragraph.textContent = "Scissors beats Paper";
+        playerPick.textContent = paperIco;
+        computerPick.textContent = scissorsIco;
+        computerScore.textContent = `Computer: ${computer}`;
+        return "You Lose!"
+    } else if (playerSelection === "Scissors" && computerSelection === "Rock") {
         computer++;
-        return "You Lose! Rock beats Scissors"
+        paragraph.textContent = "Rock beats Scissors";
+        playerPick.textContent = scissorsIco;
+        computerPick.textContent = rockIco;
+        computerScore.textContent = `Computer: ${computer}`;
+        return "You Lose!"
     } else {
+        paragraph.textContent = `${playerSelection} ties with ${computerSelection}`;
+        if (playerSelection === "Rock") {
+            playerPick.textContent = rockIco;
+            computerPick.textContent = rockIco;
+        } else if (playerSelection === "Paper") {
+            playerPick.textContent = paperIco;
+            computerPick.textContent = paperIco;
+        } else if (playerSelection === "Scissors") {
+            playerPick.textContent = scissorsIco;
+            computerPick.textContent = scissorsIco;
+        }
         return "It's a draw"
     }
 }
 
-function game() {
-    let playerSelection;
+function resetGame() {
+    player = 0;
+    computer = 0;
 
-    for (i = 0; i < 5; i++) {
-        playerSelection = prompt("Rock, Paper or Scissors?");
-        const computerSelection = computerPlay();
-        console.log(playRound(playerSelection, computerSelection));        
-    }
-
-    if (player > computer) {
-        console.log("You Win! Yayyyy");
-    } else  if (player < computer) {
-        console.log("You Lose! LMAO");
-    } else {
-        console.log("It's a draw!");
-    }
-
-    console.log("Player: " + player);
-    console.log("Computer: " + computer);
-
-    let answer = prompt("Would you like to try again?");
-    if (answer.toLocaleLowerCase() === "yes") {
-        game();
-    } else {
-        console.log("Good game, well played!");
-    }
+    heading.textContent = "Pick your choice";
+    paragraph.textContent = "First to get a score of 5 wins!"
+    playerPick.textContent = String.fromCodePoint(10067);
+    computerPick.textContent = String.fromCodePoint(10067);
+    playerScore.textContent = `Player: ${player}`;
+    computerScore.textContent = `Computer: ${computer}`;
 }
 
-game();
+// Counts the scores
+let player = 0;
+let computer = 0;
+
+// The default display
+const display = document.querySelector('#display');
+const heading = document.createElement('h2');
+heading.textContent = "Pick your choice";
+
+const paragraph = document.createElement('p');
+paragraph.textContent = "First to get a score of 5 wins!"
+
+const playerPick = document.createElement('h1');
+playerPick.textContent = String.fromCodePoint(10067);
+
+const computerPick = document.createElement('h1');
+computerPick.textContent = String.fromCodePoint(10067);
+
+const score = document.querySelector('#score');
+const playerScore = document.createElement('h3');
+playerScore.textContent = `Player: ${player}`;
+
+const computerScore = document.createElement('h3');
+computerScore.textContent = `Computer: ${computer}`;
+
+display.appendChild(heading);
+display.appendChild(paragraph);
+display.appendChild(playerPick);
+display.appendChild(computerPick);
+
+score.appendChild(playerScore);
+score.appendChild(computerScore);
+
+// Event Listeners
+const rockButton = document.querySelector('#rock');
+rockButton.addEventListener('click', () => {
+    heading.textContent = playRound("Rock", computerPlay());
+});
+
+const paperButton = document.querySelector('#paper');
+paperButton.addEventListener('click', () => {
+    heading.textContent = playRound("Paper", computerPlay());
+});
+
+const scissorsButton = document.querySelector('#scissors');
+scissorsButton.addEventListener('click', () => {
+    heading.textContent = playRound("Scissors", computerPlay());
+});
+
+const buttons = document.querySelectorAll("button");
+buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+        if (player === 5) {
+            alert("You won!");
+            resetGame();
+        } else if (computer === 5) {
+            alert("You lose!");
+            resetGame();
+        }
+    });
+});
