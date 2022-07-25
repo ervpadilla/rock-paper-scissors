@@ -4,54 +4,24 @@ function computerPlay() {
     return selection[Math.floor(Math.random()*selection.length)]
 }
 
+function updateScore(winner, playerSelection, computerSelection) {
+    if (winner === "player") {
+        player++;
+        playerScore.textContent = `Player: ${player}`;
+        return `${playerSelection} beats ${computerSelection}`;
+    } else if (winner === "computer") {
+        computer++;
+        computerScore.textContent = `Computer: ${computer}`;
+        return `${computerSelection} beats ${playerSelection}`;
+    }
+}
+
 function playRound(playerSelection, computerSelection) {
     const rockIco = String.fromCodePoint(9994);
     const paperIco = String.fromCodePoint(9995);
     const scissorsIco = String.fromCodePoint(9996);
 
-    if (playerSelection === "Rock" && computerSelection === "Scissors") {
-        player++;
-        paragraph.textContent = "Rock beats Scissors";
-        playerPick.textContent = rockIco;
-        computerPick.textContent = scissorsIco;
-        playerScore.textContent = `Player: ${player}`;
-        return "You Win!"
-    } else if (playerSelection === "Paper" && computerSelection === "Rock") {
-        player++;
-        paragraph.textContent = "Paper beats Rock";
-        playerPick.textContent = paperIco;
-        computerPick.textContent = rockIco;
-        playerScore.textContent = `Player: ${player}`;
-        return "You Win!"
-    } else if (playerSelection === "Scissors" && computerSelection === "Paper") {
-        player++;
-        paragraph.textContent = "Scissors beats Paper";
-        playerPick.textContent = scissorsIco;
-        computerPick.textContent = paperIco;
-        playerScore.textContent = `Player: ${player}`;
-        return "You Win!"
-    } else if (playerSelection === "Rock" && computerSelection === "Paper") {
-        computer++;
-        paragraph.textContent = "Paper beats Rock";
-        playerPick.textContent = rockIco;
-        computerPick.textContent = paperIco;
-        computerScore.textContent = `Computer: ${computer}`;
-        return "You Lose!"
-    } else if (playerSelection === "Paper" && computerSelection === "Scissors") {
-        computer++;
-        paragraph.textContent = "Scissors beats Paper";
-        playerPick.textContent = paperIco;
-        computerPick.textContent = scissorsIco;
-        computerScore.textContent = `Computer: ${computer}`;
-        return "You Lose!"
-    } else if (playerSelection === "Scissors" && computerSelection === "Rock") {
-        computer++;
-        paragraph.textContent = "Rock beats Scissors";
-        playerPick.textContent = scissorsIco;
-        computerPick.textContent = rockIco;
-        computerScore.textContent = `Computer: ${computer}`;
-        return "You Lose!"
-    } else {
+    if (playerSelection === computerSelection) {
         paragraph.textContent = `${playerSelection} ties with ${computerSelection}`;
         if (playerSelection === "Rock") {
             playerPick.textContent = rockIco;
@@ -65,13 +35,52 @@ function playRound(playerSelection, computerSelection) {
         }
         return "It's a draw"
     }
+
+    switch (playerSelection) {
+        case "Rock":
+            if (computerSelection === "Scissors") {
+                playerPick.textContent = rockIco;
+                computerPick.textContent = scissorsIco;
+                paragraph.textContent = updateScore("player", playerSelection, computerSelection);
+                return "You Win!"
+            } else if (computerSelection === "Paper") {
+                playerPick.textContent = rockIco;
+                computerPick.textContent = paperIco;
+                paragraph.textContent = updateScore("computer", playerSelection, computerSelection);
+                return "You Lose!"
+                    }
+        case "Paper":
+            if (computerSelection === "Rock") {
+                playerPick.textContent = paperIco;
+                computerPick.textContent = rockIco;
+                paragraph.textContent = updateScore("player", playerSelection, computerSelection);
+                return "You Win!"
+            } else if (computerSelection === "Scissors") {
+                playerPick.textContent = paperIco;
+                computerPick.textContent = scissorsIco;
+                paragraph.textContent = updateScore("computer", playerSelection, computerSelection);
+                return "You Lose!"
+            }
+        case "Scissors":
+            if (computerSelection === "Paper") {
+                playerPick.textContent = scissorsIco;
+                computerPick.textContent = paperIco;
+                paragraph.textContent = updateScore("player", playerSelection, computerSelection);
+                return "You Win!"
+            } else if (computerSelection === "Rock") {
+                playerPick.textContent = scissorsIco;
+                computerPick.textContent = rockIco;
+                paragraph.textContent = updateScore("computer", playerSelection, computerSelection);
+                return "You Lose!"
+            }
+    }
 }
 
 function resetGame() {
     player = 0;
     computer = 0;
 
-    heading.textContent = "Pick your choice";
+    heading.textContent = "Rock, Paper or Scissors?";
     paragraph.textContent = "First to get a score of 5 wins!"
     playerPick.textContent = String.fromCodePoint(10067);
     computerPick.textContent = String.fromCodePoint(10067);
@@ -84,33 +93,15 @@ let player = 0;
 let computer = 0;
 
 // The default display
-const display = document.querySelector('#display');
-const heading = document.createElement('h2');
-heading.textContent = "Pick your choice";
+const display = document.querySelector('#scoreboard');
+const heading = document.querySelector('#heading');
+const paragraph = document.querySelector('#paragraph');
 
-const paragraph = document.createElement('p');
-paragraph.textContent = "First to get a score of 5 wins!"
+const playerPick = document.querySelector('#playerPick');
+const computerPick = document.querySelector('#computerPick');
 
-const playerPick = document.createElement('h1');
-playerPick.textContent = String.fromCodePoint(10067);
-
-const computerPick = document.createElement('h1');
-computerPick.textContent = String.fromCodePoint(10067);
-
-const score = document.querySelector('#score');
-const playerScore = document.createElement('h3');
-playerScore.textContent = `Player: ${player}`;
-
-const computerScore = document.createElement('h3');
-computerScore.textContent = `Computer: ${computer}`;
-
-display.appendChild(heading);
-display.appendChild(paragraph);
-display.appendChild(playerPick);
-display.appendChild(computerPick);
-
-score.appendChild(playerScore);
-score.appendChild(computerScore);
+const playerScore = document.querySelector('#playerScore');
+const computerScore = document.querySelector('#computerScore');
 
 // Event Listeners
 const rockButton = document.querySelector('#rock');
