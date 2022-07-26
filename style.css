@@ -1,0 +1,46 @@
+#container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+#header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: teal;
+    width: 100%;
+    height: 150px;
+}
+
+#mainContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: orange;
+    width: 100%;
+    flex-grow: 1;
+}
+
+#selections {
+    display: flex;
+    flex-direction: row;
+}
+
+.selection {
+    margin: 60px;
+}
+
+#scoreboard {
+    display: flex;
+    flex-direction: row;
+}
+
+.score {
+    margin: 40px;
+}
+
+button {
+    margin: 20px;
+}

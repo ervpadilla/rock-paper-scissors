@@ -10,11 +10,11 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <div class="container">
+    <div id="container">
         <div id="header">
             <h1>Jankenpon</h1>
         </div>
-        <div id="main-content">
+        <div id="mainContent">
             <h2 id="heading">Rock, Paper, or Scissors?</h2>
             <p id="paragraph">First to get a score of 5 wins!</p>
             <div id="selections">
@@ -22,8 +22,8 @@
                 <div class="selection" id="computerPick">❓</div>
             </div>
             <div id="scoreboard">
-                <div id="playerScore">Player :0</div>
-                <div id="computerScore">Computer :0</div>
+                <div class="score" id="playerScore">Player :0</div>
+                <div class="score" id="computerScore">Computer :0</div>
             </div>
             <div>
                 <button id="rock">✊</button>
@@ -31,7 +31,7 @@
                 <button id="scissors">✌</button>
             </div>    
         </div>
-
+        <footer></footer>
     </div>
 </body>
 </html>
