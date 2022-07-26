@@ -5,8 +5,15 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Jankenpon</title>
+    <!-- CSSs -->
     <link rel="stylesheet" href="node_modules/normalize.css/normalize.css">
     <link rel="stylesheet" href="style.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <!-- Script -->
     <script src="script.js" defer></script>
 </head>
 <body>
@@ -14,22 +21,24 @@
         <div id="header">
             <h1>Jankenpon</h1>
         </div>
-        <div id="mainContent">
-            <h2 id="heading">Rock, Paper, or Scissors?</h2>
-            <p id="paragraph">First to get a score of 5 wins!</p>
-            <div id="selections">
-                <div class="selection" id="playerPick">❓</div>
-                <div class="selection" id="computerPick">❓</div>
+        <div id="subContainer">
+            <div id="mainContent">
+                <h2 id="heading">Rock, Paper, or Scissors?</h2>
+                <p id="paragraph">First to get a score of 5 wins!</p>
+                <div id="selections">
+                    <div class="selection" id="playerPick">❓</div>
+                    <div class="selection" id="computerPick">❓</div>
+                </div>
+                <div id="scoreboard">
+                    <div class="score" id="playerScore">Player :0</div>
+                    <div class="score" id="computerScore">Computer :0</div>
+                </div>
+                <div>
+                    <button id="rock">✊</button>
+                    <button id="paper">✋</button>
+                    <button id="scissors">✌</button>
+                </div>    
             </div>
-            <div id="scoreboard">
-                <div class="score" id="playerScore">Player :0</div>
-                <div class="score" id="computerScore">Computer :0</div>
-            </div>
-            <div>
-                <button id="rock">✊</button>
-                <button id="paper">✋</button>
-                <button id="scissors">✌</button>
-            </div>    
         </div>
         <footer></footer>
     </div>
